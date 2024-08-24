@@ -6,17 +6,17 @@
 using namespace std;
 
 const char* HOST = "localhost";
-const char* USER = "root";
-const char* PW = "";
-const char* DB = "Employee";
+const char* USER = "root"; // Enter your username
+const char* PW = ""; // Enter your password
+const char* DB = "new_schema"; // Enter your database name
 
 class University{
 	private:
 		int Id;
 		string Name, Subject;
-		float CGPA;
+		float Gpa;
 	public:
-	University():Id(0),Name(""),Subject(""),CGPA(0.0) {}
+	University():Id(0),Name(""),Subject(""),Gpa(0.0) {}
 	
 	void setId(int id){
 		Id = id;
@@ -30,8 +30,8 @@ class University{
 	Subject=subject;
  }
 	
- void setGrade(float cgpa){
-	CGPA= cgpa;
+ void setGrade(float Gpa){
+	Gpa= Gpa;
  }	
  
  //getter fucntions
@@ -49,7 +49,7 @@ class University{
  }
 	
  float getGrade(){
-  return CGPA;
+  return Gpa;
  }
 };
 
@@ -57,7 +57,7 @@ class University{
 void insertS(MYSQL* conn, University u){
 	 int id;
  string name,subject;
- float cgpa;
+ float Gpa;
  
  cout<<"Enter Id: ";
  cin>>id;
@@ -71,9 +71,9 @@ void insertS(MYSQL* conn, University u){
  cin>>subject;
  u.setSubject(subject);
 
- cout<<"Enter CGPA: ";
- cin>>cgpa;
- u.setGrade(cgpa);
+ cout<<"Enter Gpa: ";
+ cin>>Gpa;
+ u.setGrade(Gpa);
  
  int iId= u.getId();
  float fGrade = u.getGrade();
@@ -86,7 +86,7 @@ void insertS(MYSQL* conn, University u){
  as<<fGrade;
  string sGrade= as.str();
  
- string ins= "INSERT INTO student (Id, Name, Subject, CGPA) VALUES ('"+sId+"', '"+u.getName()+"', '"+u.getSubject()+"', '"+sGrade+"')";
+ string ins= "INSERT INTO student (Id, Name, Subject, Gpa) VALUES ('"+sId+"', '"+u.getName()+"', '"+u.getSubject()+"', '"+sGrade+"')";
  if(mysql_query(conn,ins.c_str())){
  	cout<<"Error: "<<mysql_error(conn)<<endl;
  }
