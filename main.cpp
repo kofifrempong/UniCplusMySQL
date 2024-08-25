@@ -13,10 +13,10 @@ const char* DB = "new_schema"; // Enter your database name
 class University{
 	private:
 		int Id;
-		string Name, Subject;
+		string Name, Subject, Gender;
 		float Gpa;
 	public:
-	University():Id(0),Name(""),Subject(""),Gpa(0.0) {}
+	University():Id(0),Name(""),Subject(""),Gpa(0.0),Gender("") {}
 	
 	void setId(int id){
 		Id = id;
@@ -33,6 +33,10 @@ class University{
  void setGrade(float Gpa){
 	Gpa= Gpa;
  }	
+ void setGrade(string Gender){
+	Gender= Gender;
+ }	
+ 
  
  //getter fucntions
  
@@ -47,6 +51,9 @@ class University{
  string getSubject(){
      return Subject;
  }
+ string getGender(){
+     return Gender;
+ }
 	
  float getGrade(){
   return Gpa;
@@ -56,7 +63,7 @@ class University{
 //insert function
 void insertS(MYSQL* conn, University u){
 	 int id;
- string name,subject;
+ string name,subject,gender;
  float Gpa;
  
  cout<<"Enter Id: ";
@@ -75,6 +82,10 @@ void insertS(MYSQL* conn, University u){
  cin>>Gpa;
  u.setGrade(Gpa);
  
+  cout<<"Enter Gender: ";
+ cin>>gender;
+ u.setGrade(gender);
+
  int iId= u.getId();
  float fGrade = u.getGrade();
  
@@ -86,7 +97,7 @@ void insertS(MYSQL* conn, University u){
  as<<fGrade;
  string sGrade= as.str();
  
- string ins= "INSERT INTO student (Id, Name, Subject, Gpa) VALUES ('"+sId+"', '"+u.getName()+"', '"+u.getSubject()+"', '"+sGrade+"')";
+ string ins= "INSERT INTO student (Id, Name, Subject, Gpa, Gender) VALUES ('"+sId+"', '"+u.getName()+"', '"+u.getSubject()+"', '"+sGrade+"', '"+u.getGender()+"')";
  if(mysql_query(conn,ins.c_str())){
  	cout<<"Error: "<<mysql_error(conn)<<endl;
  }
