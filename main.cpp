@@ -69,12 +69,23 @@ class Room {
 	    float Price;
 
 	public:
-		Room(string name, int bed, float price){
-			Name = name;
-			Bed = bed;
-			Price = price;
+		Room():Name(""),Bed(0),Price(0.0){
+			
 		}
+
+		
+	void setName(string name){
+	Name=name;
+ }	
 	
+ void setBed(int bed){
+	Bed=bed;
+ }
+	
+ void setPrice(float price){
+	Price= price;
+ }	
+
 	string getName(){
 		return Name;
 	}
@@ -248,13 +259,14 @@ usleep(30000);
 
 
 
+void insertroom(MYSQL* conn, Room r) {
 
+	r.setBed(5);
+	r.setName("C3");
+	r.setPrice(5000.0);
 
-void roomRegister(MYSQL* conn) {
-
-Room h("A1", 2, 5000);
-int intB =h.getBed();
-float floatP = h.getPrice(); 
+int intB =r.getBed();
+float floatP = r.getPrice(); 
 
 stringstream ss;
 ss<<intB;
@@ -264,7 +276,7 @@ stringstream as;
 as<<floatP;
 string strP = as.str();
 
-string insert= "INSERT INTO room(Name, Bed, Price) VALUES ('"+h.getName()+"', '"+strB+"', '"+strP+"' )";
+string insert= "INSERT INTO room(Name, Bed, Price) VALUES ('"+r.getName()+"', '"+strB+"', '"+strP+"' )";
 if(mysql_query(conn,insert.c_str())){
 	cout<<"Error: "<<mysql_error(conn)<<endl;
 }
@@ -272,6 +284,12 @@ else{
 	cout<<"Inserted Successfuly!"<<endl;
 }
 
+}
+
+void roomRegister(MYSQL* conn, Room r) {
+
+/*
+*/
 
 
 
@@ -281,7 +299,7 @@ cout<<"Enter Student Name: ";
 cin>>n;
 
 int total;
-string check= "SELECT Bed FROM room WHERE Name = '"+h.getName()+"'";
+string check= "SELECT Bed FROM room WHERE Name = '"+r.getName()+"'";
 if(mysql_query(conn,check.c_str())){
 	cout<<"Error: "<<mysql_error(conn)<<endl;
 }
@@ -303,14 +321,14 @@ stringstream zs;
 zs<<total;
 string strT = zs.str();
 
-string update= "UPDATE room SET Bed = '"+strT+"' WHERE Name='"+h.getName()+"' ";
+string update= "UPDATE room SET Bed = '"+strT+"' WHERE Name='"+r.getName()+"' ";
 if(mysql_query(conn,update.c_str())){
 	cout<<"Error: "<<mysql_error(conn)<<endl;
 }
 else{
 	cout<<endl;
-cout<<"Bed is Reserved Successfuly in "<<h.getName()<< " room For Student "<<n<<endl;
-cout<<"Please Pay "<<h.getPrice()<<" Dollars."<<endl;
+cout<<"Bed is Reserved Successfuly in "<<r.getName()<< " room For Student "<<n<<endl;
+cout<<"Please Pay "<<r.getPrice()<<" Dollars."<<endl;
 }
 }
 else if(total ==0){
@@ -325,6 +343,7 @@ usleep(80000);
 int main() {
 	
 	University u;
+	Room r;
 	
 MYSQL* conn;
 conn = mysql_init(NULL);
@@ -338,6 +357,8 @@ else{
 usleep(30000);
 
 bool exit = false;
+	insertroom(conn, r);
+
 while(!exit){
 	system("cls");
 	int val;
@@ -377,7 +398,7 @@ while(!exit){
 	}
 
 	else if (val==6) {
-		roomRegister(conn);
+		roomRegister(conn, r);
 	}
 	
 	else if(val==0){
