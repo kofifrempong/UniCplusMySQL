@@ -10,3 +10,5 @@ To run
 export DYLD_LIBRARY_PATH=/usr/local/mysql/lib:$DYLD_LIBRARY_PATH
 
 ./main
+
+Tables in MYSQL are fold in the database folder
