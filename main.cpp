@@ -35,6 +35,7 @@ class University{
  }	
  void setGrade(string Gender){
 	Gender= Gender;
+ 
  }	
  
  
@@ -59,6 +60,34 @@ class University{
   return Gpa;
  }
 };
+
+
+class Room {
+	private:
+		string Name;
+		int Bed;
+	    float Price;
+
+	public:
+		Room(string name, int bed, float price){
+			Name = name;
+			Bed = bed;
+			Price = price;
+		}
+	
+	string getName(){
+		return Name;
+	}
+	
+	int getBed(){
+		return Bed;
+	}
+	
+	float getPrice(){
+		return Price;
+	}
+};
+
 
 //insert function
 void insertS(MYSQL* conn, University u){
@@ -213,6 +242,86 @@ else{
 usleep(30000);
 }
 
+
+
+
+
+
+
+
+
+void roomRegister(MYSQL* conn) {
+
+Room h("A1", 2, 5000);
+int intB =h.getBed();
+float floatP = h.getPrice(); 
+
+stringstream ss;
+ss<<intB;
+string strB = ss.str();
+
+stringstream as;
+as<<floatP;
+string strP = as.str();
+
+string insert= "INSERT INTO room(Name, Bed, Price) VALUES ('"+h.getName()+"', '"+strB+"', '"+strP+"' )";
+if(mysql_query(conn,insert.c_str())){
+	cout<<"Error: "<<mysql_error(conn)<<endl;
+}
+else{
+	cout<<"Inserted Successfuly!"<<endl;
+}
+
+
+
+
+	string n;
+	cout<<endl;
+cout<<"Enter Student Name: ";
+cin>>n;
+
+int total;
+string check= "SELECT Bed FROM room WHERE Name = '"+h.getName()+"'";
+if(mysql_query(conn,check.c_str())){
+	cout<<"Error: "<<mysql_error(conn)<<endl;
+}
+else{
+MYSQL_RES* res; 
+res= mysql_store_result(conn);
+if(res){
+	MYSQL_ROW row = mysql_fetch_row(res);
+if(row){
+	total = atoi(row[0]);
+}
+mysql_free_result(res);
+}
+}
+
+if(total > 0){
+	total--;
+stringstream zs;
+zs<<total;
+string strT = zs.str();
+
+string update= "UPDATE room SET Bed = '"+strT+"' WHERE Name='"+h.getName()+"' ";
+if(mysql_query(conn,update.c_str())){
+	cout<<"Error: "<<mysql_error(conn)<<endl;
+}
+else{
+	cout<<endl;
+cout<<"Bed is Reserved Successfuly in "<<h.getName()<< " room For Student "<<n<<endl;
+cout<<"Please Pay "<<h.getPrice()<<" Dollars."<<endl;
+}
+}
+else if(total ==0){
+	cout<<endl;
+	cout<<"Sorry! No Bed Available"<<endl;
+}
+usleep(80000);
+
+}
+
+
 int main() {
 	
 	University u;
@@ -239,6 +348,8 @@ while(!exit){
 	cout<<"3. Search Student Data"<<endl;
  	cout<<"4. Update Student Data"<<endl;
  	cout<<"5. Delete Student Data"<<endl;
+	cout<<"6. Register Student Room"<<endl;
+
  	cout<<"0. Exit"<<endl;
  	cout<<"Enter choice: ";
  	cin>>val;
@@ -263,6 +374,10 @@ while(!exit){
 	
 	else if(val==5){
 	deleteS(conn);	
+	}
+
+	else if (val=6) {
+		roomRegister(conn);
 	}
 	
 	else if(val==0){
