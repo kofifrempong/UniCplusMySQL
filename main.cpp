@@ -376,7 +376,7 @@ while(!exit){
 	deleteS(conn);	
 	}
 
-	else if (val=6) {
+	else if (val==6) {
 		roomRegister(conn);
 	}
 	
