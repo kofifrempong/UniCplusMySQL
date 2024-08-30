@@ -68,6 +68,7 @@ class Room {
 		int Bed;
 	    float Price;
 
+
 	public:
 		Room():Name(""),Bed(0),Price(0.0){
 			
@@ -259,11 +260,30 @@ usleep(30000);
 
 
 // Merge room logic with university or Library logic
-void insertroom(MYSQL* conn, Room r) {
+Room insertroom(MYSQL* conn, Room r) {
+string n;
+int b;
+float p;
 
-	r.setBed(5);
-	r.setName("C3");
-	r.setPrice(5000.0);
+
+	cout<<endl;
+cout<<"Enter Room Name: ";
+cin>>n;
+	r.setName(n);
+
+	cout<<endl;
+cout<<"Enter Bed: ";
+cin>>b;
+	r.setBed(b);
+
+
+cout<<endl;
+cout<<"Enter Price: ";
+cin>>p;
+	r.setPrice(p);
+
+
+
 
 int intB =r.getBed();
 float floatP = r.getPrice(); 
@@ -283,6 +303,7 @@ if(mysql_query(conn,insert.c_str())){
 else{
 	cout<<"Inserted Successfuly!"<<endl;
 }
+return r;
 
 }
 
@@ -300,6 +321,7 @@ cin>>n;
 
 int total;
 string check= "SELECT Bed FROM room WHERE Name = '"+r.getName()+"'";
+
 if(mysql_query(conn,check.c_str())){
 	cout<<"Error: "<<mysql_error(conn)<<endl;
 }
@@ -357,7 +379,6 @@ else{
 usleep(30000);
 
 bool exit = false;
-	insertroom(conn, r);
 
 while(!exit){
 	system("cls");
@@ -398,7 +419,9 @@ while(!exit){
 	}
 
 	else if (val==6) {
-		roomRegister(conn, r);
+			
+
+		roomRegister(conn, insertroom(conn, r));
 	}
 	
 	else if(val==0){
