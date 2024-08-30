@@ -259,7 +259,6 @@ usleep(30000);
 
 
 
-// Merge room logic with university or Library logic
 Room insertroom(MYSQL* conn, Room r) {
 string n;
 int b;
