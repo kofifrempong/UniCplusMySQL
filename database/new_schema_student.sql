@@ -28,6 +28,7 @@ CREATE TABLE `student` (
   `Subject` varchar(45) NOT NULL,
   `Gpa` float NOT NULL,
   `Gender` varchar(2) NOT NULL,
+  `roomtaken` tinyint(4) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -38,7 +39,7 @@ CREATE TABLE `student` (
 
 LOCK TABLES `student` WRITE;
 /*!40000 ALTER TABLE `student` DISABLE KEYS */;
-INSERT INTO `student` VALUES (2,'Tom','CS',0,''),(3,'ric','CD',0,'');
+INSERT INTO `student` VALUES (0,'','',0,'',NULL),(2,'Tom','CS',0,'',NULL),(3,'ric','CD',0,'',NULL);
 /*!40000 ALTER TABLE `student` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -51,4 +52,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-08-28 21:44:44
+-- Dump completed on 2024-08-29 18:44:02

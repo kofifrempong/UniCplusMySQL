@@ -258,7 +258,7 @@ usleep(30000);
 
 
 
-
+// Merge room logic with university or Library logic
 void insertroom(MYSQL* conn, Room r) {
 
 	r.setBed(5);
