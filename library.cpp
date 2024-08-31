@@ -52,6 +52,99 @@ string getName() {
 	
 };
 
+class Login{
+private:
+	string userId, userPW;
+public:
+	Login(): userId(""), userPW("") {}
+	
+void setId(string id) {
+    userId = id;
+ }
+
+ void setPW(string pw) {
+    userPW = pw;
+ }
+ 
+ string getId() const {
+    return userId;
+ }
+
+string getPW() const {
+    return userPW;
+ }
+ 
+};
+
+char encryptCh(char ch, int shift){
+if(isalpha(ch)){
+	char base = isupper(ch) ? 'A' : 'a';
+	char encrypted_ch =(ch - base + shift + 26) % 26 + base;
+return encrypted_ch;
+}
+if(isdigit(ch)){
+    char encrypted_ch = (ch - '0' + shift + 10) % 10 + '0';
+    return encrypted_ch;	
+}
+return ch;	
+}
+
+string encrypt(const string& password, int shift){
+	string encrypted = "";
+for(int i=0; i<password.length(); i++){
+char ch = password[i];
+char encryptedChar = encryptCh(ch,shift);
+encrypted += encryptedChar;
+}
+return encrypted;
+}
+
+char decryptCh(char ch, int shift) {
+if (isalpha(ch)) {
+    char base = isupper(ch) ? 'A' : 'a';
+    char decrypted_ch = (ch - base - shift + 26) % 26 + base;
+    return decrypted_ch;
+} 
+else if (isdigit(ch)) {
+    char decrypted_ch = (ch - '0' - shift + 10) % 10 + '0';
+    return decrypted_ch;
+} 
+else{
+	return ch;
+}	
+}
+
+string decrypt(const string& encrypted,int shift){
+string decrypted = "";
+ for (size_t i = 0; i < encrypted.length(); i++) {
+    char ch = encrypted[i];
+    char decryptedChar = decryptCh(ch, shift);
+    decrypted += decryptedChar;
+ 
+ return decrypted;	
+}
+
+string DBpw(MYSQL* conn, const string& id){
+	string encryptedPW;
+	
+string get= "SELECT PW FROM password WHERE Id='"+id+"' ";
+if (mysql_query(conn, get.c_str())) {
+    cout << "Error: " << mysql_error(conn) << endl;
+}
+else{
+MYSQL_RES* res;
+res = mysql_store_result(conn);
+if(res){
+MYSQL_ROW	row = mysql_fetch_row(res);
+if(row){
+	encryptedPW = row[0];
+}
+}
+}
+return encryptedPW;
+}
+
+
 void admin(MYSQL* conn, Library l, Student s){
 	bool closed = false;
 	while(!closed){
