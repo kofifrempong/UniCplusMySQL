@@ -1,4 +1,4 @@
-University Management System to include student and room registration, library, and password system in C++ using MySQL Database
+University Management System to include admin handling student and room registration, and a library mangament system with a login system for both students and admins in C++ using MySQL Database
 
 #####
 
