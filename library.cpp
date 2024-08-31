@@ -350,10 +350,138 @@ cin>>val;
 
 if(val==1){
 	system("cls");
+	cout << "1. Signup." << endl;
+cout << "2. Login." << endl;
+cout << "0. Exit." << endl;
+cout << "Enter Your Choice: ";
+int val;
+cin>>val;
+
+if(val==1){
+
+	// Admin password logic 
+/*    string id, pw;
+cout << "Enter ID For Signup: ";
+cin >> id;
+l.setId(id);
+cout << "Enter A Strong Password: ";
+cin >> pw;
+l.setPW(pw);
+
+string encryptedPW = encrypt(l.getPW(),shift);
+
+string Sup= "INSERT INTO password (Id, PW) VALUES ('"+l.getId()+"', '"+encryptedPW+"' )";
+if(mysql_query(conn,Sup.c_str())){
+	cout<<"Error: "<<mysql_error(conn)<<endl;
+}
+else{
+	cout<<"Singup Successfuly"<<endl;
+}
+usleep(30000);	
+}// if1
+
+else if(val==2){
+	system("cls");
+string id, pw;
+cout << "Enter ID: ";
+cin >> id;
+cout << "Enter Your password: ";
+cin >> pw;
+
+string getDB = DBpw(conn,id);
+
+if(!getDB.empty()){
+string decryptedPW = decrypt(getDB,shift)	;
+
+if(decryptedPW == pw){
+	cout<<"Welcome"<<endl;
+}
+else{
+	cout<<"Incorrect Password. Try Again!"<<endl;
+}
+}
+else{
+	cout<<"User ID not found Try Again!";
+}
+
+usleep(50000);
+	
+}//if2
+
+else if(val==0){
+	exit = true;
+	cout<<"Bye!"<<endl;
+}
+else{
+	cout<<"Invalid Input"<<endl;
+}
+
+}//while
+*/
 admin(conn,l,s);	
 }//if1 main
 
 else if(val==2){
+
+	// User password logic 
+/*    string id, pw;
+cout << "Enter ID For Signup: ";
+cin >> id;
+l.setId(id);
+cout << "Enter A Strong Password: ";
+cin >> pw;
+l.setPW(pw);
+
+string encryptedPW = encrypt(l.getPW(),shift);
+
+string Sup= "INSERT INTO password (Id, PW) VALUES ('"+l.getId()+"', '"+encryptedPW+"' )";
+if(mysql_query(conn,Sup.c_str())){
+	cout<<"Error: "<<mysql_error(conn)<<endl;
+}
+else{
+	cout<<"Singup Successfuly"<<endl;
+}
+usleep(30000);	
+}// if1
+
+else if(val==2){
+	system("cls");
+string id, pw;
+cout << "Enter ID: ";
+cin >> id;
+cout << "Enter Your password: ";
+cin >> pw;
+
+string getDB = DBpw(conn,id);
+
+if(!getDB.empty()){
+string decryptedPW = decrypt(getDB,shift)	;
+
+if(decryptedPW == pw){
+	cout<<"Welcome"<<endl;
+}
+else{
+	cout<<"Incorrect Password. Try Again!"<<endl;
+}
+}
+else{
+	cout<<"User ID not found Try Again!";
+}
+
+usleep(50000);
+	
+}//if2
+
+else if(val==0){
+	exit = true;
+	cout<<"Bye!"<<endl;
+}
+else{
+	cout<<"Invalid Input"<<endl;
+}
+
+}//while
+*/
 user(conn,l,s);
 usleep(50000);	
 }
