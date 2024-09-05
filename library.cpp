@@ -120,9 +120,9 @@ string decrypted = "";
     char ch = encrypted[i];
     char decryptedChar = decryptCh(ch, shift);
     decrypted += decryptedChar;
- 
+ }
  return decrypted;	
-}
+
 }
 string DBpw(MYSQL* conn, const string& id){
 	string encryptedPW;
@@ -226,7 +226,7 @@ string disp= "SELECT * FROM library";
  	if(res){
  		int num= mysql_num_fields(res);
  	MYSQL_ROW row;
- 	while(row=mysql_fetch_row(res)){
+ 	while(row==mysql_fetch_row(res)){
  		for(int i=0; i< num; i++){
  			cout<<" "<<row[i];
 		 }
@@ -250,7 +250,7 @@ res = mysql_store_result(conn);
 if(res){
 	int num = mysql_num_fields(res);
 MYSQL_ROW row;
-while(row=mysql_fetch_row(res)){
+while(row==mysql_fetch_row(res)){
 	for(int i=0; i< num; i++){
 	if(Bname == row[i]){
 	int quantity = atoi(row[i+1]);
@@ -338,7 +338,7 @@ else{
 }
 usleep(30000);
 bool exit = false;
-int shift = 3;
+int shift = 0;
 while(!exit){
 	system("cls");
 	int val;
@@ -426,6 +426,14 @@ else{
 	// User password logic 
 
 else if(val==2){
+	system("cls");
+	cout << "1. Signup." << endl;
+cout << "2. Login." << endl;
+cout << "0. Exit." << endl;
+cout << "Enter Your Choice: ";
+int val;
+cin>>val;
+
 if(val==1){
     string id, pw;
 cout << "Enter ID For Signup: ";
