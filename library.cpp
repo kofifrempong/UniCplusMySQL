@@ -421,7 +421,7 @@ else{
 admin(conn,l,s);	
 }//if1 main
 	// User password logic 
-/*
+
 else if(val==2){
 if(val==1){
     string id, pw;
@@ -481,7 +481,7 @@ else{
 }
 
 }//while
-*/
+
 user(conn,l,s);
 usleep(50000);	
 }
