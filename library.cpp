@@ -360,7 +360,7 @@ cin>>val;
 if(val==1){
 
 	// Admin password logic 
-/*    string id, pw;
+    string id, pw;
 cout << "Enter ID For Signup: ";
 cin >> id;
 l.setId(id);
@@ -416,15 +416,15 @@ else{
 	cout<<"Invalid Input"<<endl;
 }
 
-}//while
-*/
+//while
+
 admin(conn,l,s);	
 }//if1 main
-
-else if(val==2){
-
 	// User password logic 
-/*    string id, pw;
+/*
+else if(val==2){
+if(val==1){
+    string id, pw;
 cout << "Enter ID For Signup: ";
 cin >> id;
 l.setId(id);
@@ -491,7 +491,7 @@ else if(val==0){
 	usleep(30000);
 }
 
-}//while
+}
 mysql_close(conn);
 	return 0;
 }
