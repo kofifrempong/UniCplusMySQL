@@ -123,7 +123,7 @@ string decrypted = "";
  
  return decrypted;	
 }
-
+}
 string DBpw(MYSQL* conn, const string& id){
 	string encryptedPW;
 	
@@ -324,7 +324,8 @@ mysql_free_result(res);
 
 int main() {
 	Student s;
-	Library l;
+	Login l;
+	Library li;
 
 MYSQL* conn;
 conn = mysql_init(NULL);
@@ -337,6 +338,7 @@ else{
 }
 usleep(30000);
 bool exit = false;
+int shift = 3;
 while(!exit){
 	system("cls");
 	int val;
@@ -395,6 +397,8 @@ string decryptedPW = decrypt(getDB,shift)	;
 
 if(decryptedPW == pw){
 	cout<<"Welcome"<<endl;
+	admin(conn,li,s);	
+
 }
 else{
 	cout<<"Incorrect Password. Try Again!"<<endl;
@@ -418,7 +422,6 @@ else{
 
 //while
 
-admin(conn,l,s);	
 }//if1 main
 	// User password logic 
 
@@ -459,6 +462,8 @@ string decryptedPW = decrypt(getDB,shift)	;
 
 if(decryptedPW == pw){
 	cout<<"Welcome"<<endl;
+	user(conn,li,s);
+
 }
 else{
 	cout<<"Incorrect Password. Try Again!"<<endl;
@@ -479,20 +484,22 @@ else if(val==0){
 else{
 	cout<<"Invalid Input"<<endl;
 }
+usleep(50000);	
 
 }//while
 
-user(conn,l,s);
-usleep(50000);	
-}
+
+
 else if(val==0){
 	exit= true;
 	cout<<"Good Luck!"<<endl;
 	usleep(30000);
 }
 
-}
+
 mysql_close(conn);
 	return 0;
+
 }
 
+}
