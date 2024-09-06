@@ -55,11 +55,16 @@ string getName() {
 class Login{
 private:
 	string userId, userPW;
+	int stId;
 public:
 	Login(): userId(""), userPW("") {}
 	
 void setId(string id) {
     userId = id;
+ }
+
+ void setstId(int id) {
+	stId = id;
  }
 
  void setPW(string pw) {
@@ -128,6 +133,26 @@ string DBpw(MYSQL* conn, const string& id){
 	string encryptedPW;
 	
 string get= "SELECT PW FROM password WHERE Id='"+id+"' ";
+if (mysql_query(conn, get.c_str())) {
+    cout << "Error: " << mysql_error(conn) << endl;
+}
+else{
+MYSQL_RES* res;
+res = mysql_store_result(conn);
+if(res){
+MYSQL_ROW	row = mysql_fetch_row(res);
+if(row){
+	encryptedPW = row[0];
+}
+}
+}
+return encryptedPW;
+}
+
+string stDBpw(MYSQL* conn, int id){
+	string encryptedPW;
+	
+string get= "SELECT PW FROM stpassword WHERE id='"+id+"' ";
 if (mysql_query(conn, get.c_str())) {
     cout << "Error: " << mysql_error(conn) << endl;
 }
@@ -338,7 +363,7 @@ else{
 }
 usleep(30000);
 bool exit = false;
-int shift = 0;
+int shift = 1;
 while(!exit){
 	system("cls");
 	int val;
@@ -422,7 +447,8 @@ else{
 
 //while
 
-}//if1 main
+}
+
 	// User password logic 
 
 else if(val==2){
@@ -435,17 +461,18 @@ int val;
 cin>>val;
 
 if(val==1){
-    string id, pw;
+    int id;
+	string pw;
 cout << "Enter ID For Signup: ";
 cin >> id;
-l.setId(id);
+l.setstId(id);
 cout << "Enter A Strong Password: ";
 cin >> pw;
 l.setPW(pw);
 
 string encryptedPW = encrypt(l.getPW(),shift);
 
-string Sup= "INSERT INTO password (Id, PW) VALUES ('"+l.getId()+"', '"+encryptedPW+"' )";
+string Sup= "INSERT INTO stpassword (id, PW) VALUES ('"+l.getId()+"', '"+encryptedPW+"' )";
 if(mysql_query(conn,Sup.c_str())){
 	cout<<"Error: "<<mysql_error(conn)<<endl;
 }
@@ -457,13 +484,14 @@ usleep(30000);
 
 else if(val==2){
 	system("cls");
-string id, pw;
+int id;
+string pw;
 cout << "Enter ID: ";
 cin >> id;
 cout << "Enter Your password: ";
 cin >> pw;
 
-string getDB = DBpw(conn,id);
+string getDB = stDBpw(conn,id);
 
 if(!getDB.empty()){
 string decryptedPW = decrypt(getDB,shift)	;
