@@ -155,8 +155,10 @@ return encryptedPW;
 
 string stDBpw(MYSQL* conn, int id){
 	string encryptedPW;
-	
-string get= "SELECT PW FROM stpassword WHERE id='"+id+"' ";
+	stringstream ss;
+ss<<id;
+string Sq = ss.str();
+string get= "SELECT PW FROM stpassword WHERE id='"+Sq+"' ";
 if (mysql_query(conn, get.c_str())) {
     cout << "Error: " << mysql_error(conn) << endl;
 }
@@ -476,7 +478,10 @@ l.setPW(pw);
 
 string encryptedPW = encrypt(l.getPW(),shift);
 
-string Sup= "INSERT INTO stpassword (id, PW) VALUES ('"+l.getstId()+"', '"+encryptedPW+"' )";
+stringstream ss;
+ss<<l.getstId();
+string Sq = ss.str();
+string Sup= "INSERT INTO stpassword (id, PW) VALUES ('"+Sq+"', '"+encryptedPW+"' )";
 if(mysql_query(conn,Sup.c_str())){
 	cout<<"Error: "<<mysql_error(conn)<<endl;
 }
