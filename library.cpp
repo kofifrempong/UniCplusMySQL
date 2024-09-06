@@ -75,6 +75,10 @@ void setId(string id) {
     return userId;
  }
 
+ int getstId() {
+	return stId;
+ }
+
 string getPW() const {
     return userPW;
  }
@@ -405,7 +409,7 @@ else{
 	cout<<"Singup Successfuly"<<endl;
 }
 usleep(30000);	
-}// if1
+}
 
 else if(val==2){
 	system("cls");
@@ -435,7 +439,7 @@ else{
 
 usleep(50000);
 	
-}//if2
+}
 
 else if(val==0){
 	exit = true;
@@ -445,7 +449,7 @@ else{
 	cout<<"Invalid Input"<<endl;
 }
 
-//while
+
 
 }
 
@@ -472,7 +476,7 @@ l.setPW(pw);
 
 string encryptedPW = encrypt(l.getPW(),shift);
 
-string Sup= "INSERT INTO stpassword (id, PW) VALUES ('"+l.getId()+"', '"+encryptedPW+"' )";
+string Sup= "INSERT INTO stpassword (id, PW) VALUES ('"+l.getstId()+"', '"+encryptedPW+"' )";
 if(mysql_query(conn,Sup.c_str())){
 	cout<<"Error: "<<mysql_error(conn)<<endl;
 }
