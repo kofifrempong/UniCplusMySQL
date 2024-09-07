@@ -484,7 +484,9 @@ stringstream ss;
 ss<<l.getstId();
 string Sq = ss.str();
 string Sup= "INSERT INTO stpassword (id, PW) VALUES ('"+Sq+"', '"+encryptedPW+"' )";
-if(mysql_query(conn,Sup.c_str())){
+ string st = "INSERT INTO student (id) VALUES('"+Sq+"')";
+ 
+if(mysql_query(conn,Sup.c_str()) && mysql_query(conn, st.c_str())){
 	cout<<"Error: "<<mysql_error(conn)<<endl;
 }
 else{
