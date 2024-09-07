@@ -305,13 +305,15 @@ usleep(50000);
 void user(MYSQL* conn, Library l, Student s){
 	system("cls");
 	display(conn);
-int Sid;
+/*int Sid;
 cout<<"Enter Your ID: ";
-cin>>Sid;
+cin>>Sid;*/
 
 stringstream ss;
-ss<<Sid;
+ss<<s.getId();
 string Sq = ss.str();
+   cout << "" +Sq+""  << endl;
+
 
 string com = "SELECT * FROM student WHERE id = '"+Sq+"'";
  if (mysql_query(conn, com.c_str())) {
@@ -507,6 +509,7 @@ string decryptedPW = decrypt(getDB,shift)	;
 
 if(decryptedPW == pw){
 	cout<<"Welcome"<<endl;
+	s.setId(id);
 	user(conn,li,s);
 
 }
