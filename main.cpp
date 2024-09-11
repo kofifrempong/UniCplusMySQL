@@ -207,38 +207,43 @@ usleep(50000);
 
 void updateS(MYSQL* conn, University u){
 	int id;
-	cout<<"Enter Id: ";
-	cin>>id;
-	
-	int iId = u.getId();
-	 stringstream ss;
- ss<<id;
- string sId= ss.str();
- 
-  string subject;
- cout<<"Enter New Subject: ";
- cin>>subject;
- u.setSubject(subject);
+    cout << "Enter Id: ";
+    cin >> id;
 
-  
-  string name;
- cout<<"Enter New Name: ";
- cin>>name;
- u.setName(name);
+    // Assuming u is a student object that has been properly initialized
+    // and has getters and setters for the fields: Subject, Name, GPA, and Gender.
+    
+    string subject;
+    cout << "Enter New Subject: ";
+    cin >> subject;
+    u.setSubject(subject);
 
-  
-  float gpa;
- cout<<"Enter New GPA: ";
- cin>>gpa;
- u.setGrade(gpa);
+    string name;
+    cout << "Enter New Name: ";
+    cin >> name;
+    u.setName(name);
 
-  
-  string gender;
- cout<<"Enter New Gender: ";
- cin>>gender;
- u.setGender(gender);
- 
- string upd = "UPDATE student SET Subject = '"+u.getSubject()+"' WHERE Id = '"+sId+"'";
+    float gpa;
+    cout << "Enter New GPA: ";
+    cin >> gpa;
+    u.setGrade(gpa);
+
+    string gender;
+    cout << "Enter New Gender: ";
+    cin >> gender;
+    u.setGender(gender);
+
+    // Safely construct the SQL query without converting the id to a string.
+    stringstream ss;
+    ss << "UPDATE student SET "
+       << "Subject = '" << u.getSubject() << "', "
+       << "Name = '" << u.getName() << "', "
+       << "GPA = " << u.getGrade() << ", "
+       << "Gender = '" << u.getGender() << "' "
+       << "WHERE Id = " << id;
+
+    string upd = ss.str();
+
  if(mysql_query(conn,upd.c_str())){
 cout<<"Error: "<<mysql_error(conn)<<endl;
 }
