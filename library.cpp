@@ -1,6 +1,6 @@
 #include <iostream>
-#include </usr//local/mysql-5.6.41-macos10.13-x86_64/include/mysql.h>
-#include </opt//local/include/mysql57/mysql/mysqld_error.h>
+#include <mysql.h>
+#include <mysqld_error.h>
 #include <unistd.h>
 #include <sstream>
 using namespace std;
@@ -8,7 +8,7 @@ using namespace std;
 
 const char* HOST = "localhost";
 const char* USER = "root";
-const char* PW = "";
+const char* PW = "derpderp"; //your password here 
 const char* DB = "new_schema";
 
 class Student{
@@ -187,7 +187,6 @@ cout << "1. Add Book." << endl;
  cin >> choice;
  
  if(choice==1){
- 	system("cls");
 string name;
 int quantity;
 
@@ -214,7 +213,6 @@ else{
  }// if1
  
  else if(choice==2){
- 	system("cls");
 int id;
  cout << "Enter Student ID: ";
  cin >> id;
@@ -243,7 +241,6 @@ usleep(30000);
 
 //display function
 void display(MYSQL* conn){
-	system("cls");
 cout<<"Available Books"<<endl;
 cout<<"***************"<<endl;
 
@@ -276,12 +273,16 @@ if (mysql_query(conn, exist.c_str())) {
  cout << "Error: " << mysql_error(conn) << endl;
  }
 else{
+
 MYSQL_RES* res;
 res = mysql_store_result(conn);
 if(res){
 	int num = mysql_num_fields(res);
 MYSQL_ROW row;
-while(row==mysql_fetch_row(res)){
+
+
+while(row=mysql_fetch_row(res)){
+
 	for(int i=0; i< num; i++){
 	if(Bname == row[i]){
 	int quantity = atoi(row[i+1]);
@@ -303,7 +304,6 @@ usleep(50000);
 // user function
 
 void user(MYSQL* conn, Library l, Student s){
-	system("cls");
 	display(conn);
 /*int Sid;
 cout<<"Enter Your ID: ";
@@ -373,7 +373,6 @@ usleep(30000);
 bool exit = false;
 int shift = 1;
 while(!exit){
-	system("cls");
 	int val;
 cout << "Welcome To Library Management System" << endl;
 cout << "************************************" << endl;
@@ -384,7 +383,6 @@ cout<<"Enter Choice: ";
 cin>>val;
 
 if(val==1){
-	system("cls");
 	cout << "1. Signup." << endl;
 cout << "2. Login." << endl;
 cout << "0. Exit." << endl;
@@ -396,7 +394,7 @@ if(val==1){
 
 	// Admin password logic 
     string id, pw;
-cout << "Enter ID For Signup: ";
+cout << "Enter username ID For Signup: ";
 cin >> id;
 l.setId(id);
 cout << "Enter A Strong Password: ";
@@ -416,9 +414,8 @@ usleep(30000);
 }
 
 else if(val==2){
-	system("cls");
 string id, pw;
-cout << "Enter ID: ";
+cout << "Enter username ID: ";
 cin >> id;
 cout << "Enter Your password: ";
 cin >> pw;
@@ -460,7 +457,6 @@ else{
 	// User password logic 
 
 else if(val==2){
-	system("cls");
 	cout << "1. Signup." << endl;
 cout << "2. Login." << endl;
 cout << "0. Exit." << endl;
@@ -471,7 +467,7 @@ cin>>val;
 if(val==1){
     int id;
 	string pw;
-cout << "Enter ID For Signup: ";
+cout << "Enter numeric ID For Signup: ";
 cin >> id;
 l.setstId(id);
 cout << "Enter A Strong Password: ";
@@ -486,7 +482,7 @@ string Sq = ss.str();
 string Sup= "INSERT INTO stpassword (id, PW) VALUES ('"+Sq+"', '"+encryptedPW+"' )";
  string st = "INSERT INTO student (id) VALUES('"+Sq+"')";
  
-if(mysql_query(conn,Sup.c_str()) && mysql_query(conn, st.c_str())){
+if(mysql_query(conn,Sup.c_str()) || mysql_query(conn, st.c_str())){
 	cout<<"Error: "<<mysql_error(conn)<<endl;
 }
 else{
@@ -496,10 +492,9 @@ usleep(30000);
 }// if1
 
 else if(val==2){
-	system("cls");
 int id;
 string pw;
-cout << "Enter ID: ";
+cout << "Enter numeric ID: ";
 cin >> id;
 cout << "Enter Your password: ";
 cin >> pw;

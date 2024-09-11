@@ -1,13 +1,13 @@
 #include <iostream>
-#include </usr//local/mysql-5.6.41-macos10.13-x86_64/include/mysql.h>
-#include </opt//local/include/mysql57/mysql/mysqld_error.h>
+#include <mysql.h>
+#include <mysqld_error.h>
 #include <unistd.h>
 #include <sstream>
 using namespace std;
 
 const char* HOST = "localhost";
 const char* USER = "root"; // Enter your username
-const char* PW = ""; // Enter your password
+const char* PW = "derpderp"; // Enter your password
 const char* DB = "new_schema"; // Enter your database name
 
 class University{
@@ -33,7 +33,7 @@ class University{
  void setGrade(float Gpa){
 	Gpa= Gpa;
  }	
- void setGrade(string Gender){
+ void setGender(string Gender){
 	Gender= Gender;
  
  }	
@@ -125,7 +125,7 @@ void insertS(MYSQL* conn, University u){
  
   cout<<"Enter Gender: ";
  cin>>gender;
- u.setGrade(gender);
+ u.setGender(gender);
 
  int iId= u.getId();
  float fGrade = u.getGrade();
@@ -219,6 +219,24 @@ void updateS(MYSQL* conn, University u){
  cout<<"Enter New Subject: ";
  cin>>subject;
  u.setSubject(subject);
+
+  
+  string name;
+ cout<<"Enter New Name: ";
+ cin>>name;
+ u.setName(name);
+
+  
+  float gpa;
+ cout<<"Enter New GPA: ";
+ cin>>gpa;
+ u.setGrade(gpa);
+
+  
+  string gender;
+ cout<<"Enter New Gender: ";
+ cin>>gender;
+ u.setGender(gender);
  
  string upd = "UPDATE student SET Subject = '"+u.getSubject()+"' WHERE Id = '"+sId+"'";
  if(mysql_query(conn,upd.c_str())){
@@ -271,13 +289,13 @@ cin>>n;
 	r.setName(n);
 
 	cout<<endl;
-cout<<"Enter Bed: ";
+cout<<"Enter number of Beds: ";
 cin>>b;
 	r.setBed(b);
 
 
 cout<<endl;
-cout<<"Enter Price: ";
+cout<<"Enter Price (in floating point format): ";
 cin>>p;
 	r.setPrice(p);
 
