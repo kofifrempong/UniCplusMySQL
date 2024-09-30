@@ -7,7 +7,7 @@ using namespace std;
 
 const char* HOST = "localhost";
 const char* USER = "root"; // Enter your username
-const char* PW = "derpderp"; // Enter your password
+const char* PW = ""; // Enter your password
 const char* DB = "new_schema"; // Enter your database name
 
 class University{
